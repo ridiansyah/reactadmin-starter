@@ -15,7 +15,7 @@ import { User, Lock } from "react-feather";
 import SweetAlert from "react-bootstrap-sweetalert";
 import loginImg from "../../assets/img/pages/login.png";
 import "../../assets/scss/pages/authentication.scss";
-import { loginWithJWT } from "../../redux/actions/auth/loginActions";
+import { handleActionLogin } from "../../redux/actions/auth/loginActions";
 
 export default function Index(props) {
   const [dataLogin, setDataLogin] = useState({
@@ -45,7 +45,7 @@ export default function Index(props) {
       });
       setLoading(false);
     } else {
-      dispatch(loginWithJWT(dataLogin));
+      dispatch(handleActionLogin(dataLogin));
       setLoading(false);
     }
   };

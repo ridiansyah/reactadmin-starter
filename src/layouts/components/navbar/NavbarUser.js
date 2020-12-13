@@ -14,9 +14,11 @@ import axios from "axios";
 import * as Icon from "react-feather";
 import classnames from "classnames";
 import Autocomplete from "../../../components/@vuexy/autoComplete/AutoCompleteComponent";
-import { history } from "../../../history";
+import { useDispatch } from "react-redux";
+import { handleActionLogout } from "../../../redux/actions/auth/logoutActions";
 
 const UserDropdown = (props) => {
+  const dispatch = useDispatch();
   return (
     <DropdownMenu right>
       <DropdownItem tag="a" href="#">
@@ -40,7 +42,11 @@ const UserDropdown = (props) => {
         <span className="align-middle">WishList</span>
       </DropdownItem>
       <DropdownItem divider />
-      <DropdownItem tag="a" href="#" onClick={(e) => history.push("/login")}>
+      <DropdownItem
+        tag="a"
+        href="#"
+        onClick={(e) => dispatch(handleActionLogout())}
+      >
         <Icon.Power size={14} className="mr-50" />
         <span className="align-middle">Log Out</span>
       </DropdownItem>

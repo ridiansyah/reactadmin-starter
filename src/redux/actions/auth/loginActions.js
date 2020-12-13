@@ -1,8 +1,8 @@
 import axios from "axios";
 import { history } from "../../../history";
-import { urlAPI } from "../../../utility/Common";
+import { urlAPI, setUserSession } from "../../../utility/Common";
 
-export const loginWithJWT = (user) => {
+export const handleActionLogin = (user) => {
   return (dispatch) => {
     axios
       .post(urlAPI + "/admin/login", {
@@ -12,10 +12,14 @@ export const loginWithJWT = (user) => {
       .then((response) => {
         var loggedInUser;
         if (response.data.code === 200) {
+          setUserSession(
+            response.data.result?.token,
+            response.data.result?.data
+          );
           loggedInUser = response.data.result.data?.username;
           dispatch({
-            type: "LOGIN_WITH_JWT",
-            payload: { loggedInUser, loggedInWith: "jwt" },
+            type: "HANDLE_LOGIN",
+            payload: { loggedInUser, loggedInWith: "localStorage" },
           });
           dispatch({
             type: "FILL_USER_DATA",
@@ -38,8 +42,3 @@ export const loginWithJWT = (user) => {
       });
   };
 };
-
-// export const changeRole = (role) => {
-//   console.log("ROLE", role);
-//   return (dispatch) => dispatch({ type: "CHANGE_ROLE", userRole: role });
-// };

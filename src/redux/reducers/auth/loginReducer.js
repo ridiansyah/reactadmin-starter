@@ -1,30 +1,22 @@
+import { getToken, getUser } from "../../../utility/Common";
+
+const token = getToken();
+const userData = getUser();
+
 export const login = (
-  state = { userRole: "", firstName: "", lastName: "", userName: "" },
+  state = {
+    userRole: token && userData ? userData?.user_type_name : "",
+    firstName: token && userData ? userData?.first_name : "",
+    lastName: token && userData ? userData?.last_name : "",
+    userName: token && userData ? userData?.username : "",
+  },
   action
 ) => {
   switch (action.type) {
-    case "LOGIN_WITH_EMAIL": {
+    case "HANDLE_LOGIN": {
       return { ...state, values: action.payload };
     }
-    case "LOGIN_WITH_FB": {
-      return { ...state, values: action.payload };
-    }
-    case "LOGIN_WITH_TWITTER": {
-      return { ...state, values: action.payload };
-    }
-    case "LOGIN_WITH_GOOGLE": {
-      return { ...state, values: action.payload };
-    }
-    case "LOGIN_WITH_GITHUB": {
-      return { ...state, values: action.payload };
-    }
-    case "LOGIN_WITH_JWT": {
-      return { ...state, values: action.payload };
-    }
-    case "LOGOUT_WITH_JWT": {
-      return { ...state, values: action.payload };
-    }
-    case "LOGOUT_WITH_FIREBASE": {
+    case "HANDLE_LOGOUT": {
       return { ...state, values: action.payload };
     }
     case "CHANGE_ROLE": {
